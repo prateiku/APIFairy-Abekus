@@ -376,7 +376,7 @@ class APIFairy:
                     for method, operation in operations.items():
                         operation['parameters'] = arguments + \
                             operation['parameters']
-                    print(path, operations['parameters'], '\n')
+                    print(path, operation['parameters'], '\n')
 
                 path = re.sub(r'<([^<:]+:)?', '{', rule.rule).replace('>', '}')
                 if path not in paths:
