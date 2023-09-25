@@ -351,7 +351,6 @@ class APIFairy:
                 path_arguments = re.findall(r'<(([^<:]+:)?([^>]+))>',
                                             rule.rule)
                 if path_arguments:
-                    print(path_arguments)
                     annotations = view_func.__annotations__ or {}
                     arguments = []
                     for _, type_, name in path_arguments:
@@ -374,10 +373,10 @@ class APIFairy:
                                     argument['description'] = annotation
                                     break
                         arguments.append(argument)
-                    print(operations)
                     for method, operation in operations.items():
                         operation['parameters'] = arguments + \
                             operation['parameters']
+                    print(path, operations['parameters'], '\n')
 
                 path = re.sub(r'<([^<:]+:)?', '{', rule.rule).replace('>', '}')
                 if path not in paths:
