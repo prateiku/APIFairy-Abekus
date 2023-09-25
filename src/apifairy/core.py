@@ -58,8 +58,8 @@ class APIFairy:
 
         if self.apispec_path:
             def json():
-                self.apispec = sort_parameters_by_name(self.apispec)
-                return dumps(self.apispec), 200, \
+                parsed_apispec = sort_parameters_by_name(self.apispec)
+                return dumps(parsed_apispec), 200, \
                     {'Content-Type': 'application/json'}
 
             for decorator in self.apispec_decorators:
