@@ -24,7 +24,7 @@ from werkzeug.http import HTTP_STATUS_CODES
 from apifairy.decorators import _webhooks
 from apifairy.exceptions import ValidationError
 from apifairy import fields as apifairy_fields
-from apifairy.utils import parse_and_sort_util
+
 
 class APIFairy:
     def __init__(self, app=None):
@@ -57,8 +57,7 @@ class APIFairy:
 
         if self.apispec_path:
             def json():
-                json_obj = parse_and_sort_util(self.apispec)
-                return dumps(json_obj), 200, \
+                return dumps(self.apispec), 200, \
                     {'Content-Type': 'application/json'}
 
             for decorator in self.apispec_decorators:
@@ -373,10 +372,10 @@ class APIFairy:
                                     argument['description'] = annotation
                                     break
                         arguments.append(argument)
+
                     for method, operation in operations.items():
                         operation['parameters'] = arguments + \
                             operation['parameters']
-                        print(path, operation['parameters'], '\n')
 
                 path = re.sub(r'<([^<:]+:)?', '{', rule.rule).replace('>', '}')
                 if path not in paths:
@@ -395,7 +394,6 @@ class APIFairy:
                 if method in operations:
                     sorted_operations[method] = operations[method]
             spec.path(path=path, operations=sorted_operations)
-
 
         spec = spec.to_dict()
 
