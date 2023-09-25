@@ -395,7 +395,7 @@ class APIFairy:
                 if method in operations:
                     sorted_operations[method] = operations[method]
             spec.path(path=path, operations=sorted_operations)
-        print(spec)
+
 
         spec = spec.to_dict()
 
